@@ -1,0 +1,9 @@
+@import "./styles/fonts";
+@import "./styles/color-palette";
+body {
+  background-color: $color-light-grey;
+}
+
+.App {
+  font-family: "Outfit", sans-serif;
+}

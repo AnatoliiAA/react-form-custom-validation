@@ -1,0 +1,51 @@
+@import "../../../styles/color-palette";
+@import "../../../styles/vars";
+
+.input-wrapper {
+  display: flex;
+  position: relative;
+  flex-wrap: wrap;
+  width: 48%;
+  height: 110px;
+}
+
+.text-input-label {
+  position: relative;
+  display: inline-block;
+  height: 20px;
+  line-height: 20px;
+  font-weight: bold;
+  width: 100%;
+}
+.text-input {
+  width: 100%;
+  height: 40px;
+  box-sizing: border-box;
+  margin: 10px 0 35px 0;
+  padding: 0 0 0 5px;
+  border: 1px solid lightgrey;
+  border-radius: 5px;
+  &__error {
+    position: absolute;
+    display: block;
+    font-size: $font-size-xsmall;
+    font-weight: normal;
+    color: $color-red;
+    top: 70px;
+  }
+  &--valid {
+    border: 2px solid $color-green;
+  }
+  &--invalid {
+    border: 2px solid $color-red;
+  }
+  &--empty {
+    border: 1px solid lightgray;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .input-wrapper {
+    width: 100%;
+  }
+}
