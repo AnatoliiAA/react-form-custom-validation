@@ -1,5 +1,5 @@
 export const validateName = (nameStr) => {
-  const regex = /^[a-zA-Zа-яА-Я]{2,}/;
+  const regex = /^[a-zA-Zа-яА-Я]{2,}$/;
   return regex.test(nameStr);
 };
 
@@ -14,7 +14,7 @@ export const validatePhone = (phoneStr) => {
 };
 
 export const validatePassword = (passwordStr) => {
-  const regex = /^[a-zA-Z0-9!@#$%^&*]{8,16}$/;
+  const regex = /^[a-zA-Z0-9!@#$%^&*]{8,}$/;
   return regex.test(passwordStr);
 };
 

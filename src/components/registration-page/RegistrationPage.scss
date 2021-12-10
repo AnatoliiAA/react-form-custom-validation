@@ -1,7 +1,7 @@
 @import "../../styles/color-palette";
 @import "../../styles/vars";
 
-.registration-form-extended {
+.registration-page {
   display: flex;
   max-width: 1440px;
   min-height: 800px;
@@ -49,7 +49,7 @@
 }
 
 @media screen and (max-width: 1440px) {
-  .registration-form-extended {
+  .registration-page {
     &__text {
       font-size: $font-size-large;
     }
@@ -57,7 +57,7 @@
 }
 
 @media screen and (max-width: 1024px) {
-  .registration-form-extended {
+  .registration-page {
     &__title {
       margin: 50px 0 20px 20px;
     }
@@ -68,7 +68,7 @@
 }
 
 @media screen and (max-width: 768px) {
-  .registration-form-extended {
+  .registration-page {
     &__leftbar {
       display: none;
     }

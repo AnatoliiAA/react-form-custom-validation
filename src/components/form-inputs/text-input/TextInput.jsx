@@ -9,24 +9,21 @@ export const TextInput = ({
   onChange,
   validity,
   error,
+  showError,
   children,
 }) => (
   <div className="input-wrapper">
     <label htmlFor={id} className="text-input-label">
       {labelText}
-      {!validity && value !== "" ? (
-        <span className="text-input__error">{error}</span>
-      ) : (
-        ""
-      )}
+      {showError ? <span className="text-input__error">{error}</span> : ""}
     </label>
     <input
       type={type}
       value={value}
       id={id}
       className={`text-input ${
-        validity ? "text-input--valid" : "text-input--invalid"
-      } ${value === "" ? "text-input--empty" : ""}`}
+        !validity || showError ? "text-input--invalid" : "text-input--valid"
+      } ${value === "" && !showError ? "text-input--empty" : ""}`}
       name={name}
       onChange={onChange}
     />

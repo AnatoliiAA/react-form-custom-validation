@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { TextInput } from "../text-input";
+import { TextInput } from "../text-input/TextInput";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-regular-svg-icons";
 import "./PasswordInput.scss";
@@ -12,6 +12,7 @@ export const PasswordInput = ({
   labelText,
   validity,
   error,
+  showError,
 }) => {
   const [visibility, setVisibility] = useState(false);
 
@@ -36,6 +37,7 @@ export const PasswordInput = ({
         labelText={labelText}
         validity={validity}
         error={error}
+        showError={showError}
         children={visibilityIcon}
       />
     </>

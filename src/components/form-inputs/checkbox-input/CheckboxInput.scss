@@ -1,11 +1,30 @@
+@import '../../../styles/vars';
+@import '../../../styles/color-palette';
+
 .checkbox-input {
   width: 20px;
   height: 20px;
   margin: 0 10px 0 0;
+  &__error {
+    position: absolute;
+    display: block;
+    font-size: $font-size-xsmall;
+    font-weight: normal;
+    color: $color-red;
+    top: 32px;
+  }
   &--valid {
     box-shadow: 0 0 10px -2px green;
   }
   &--invalid {
     box-shadow: 0 0 10px -2px red;
   }
+}
+.checkbox-wrapper {
+  display: flex;
+  position: relative;
+  align-items: center;
+  width: 100%;
+  height: 30px;
+  margin-bottom: 20px;
 }
