@@ -1,6 +1,6 @@
-import "./TextInput.scss";
+import "./Input.scss";
 
-export const TextInput = ({
+export const Input = ({
   id,
   name,
   type,

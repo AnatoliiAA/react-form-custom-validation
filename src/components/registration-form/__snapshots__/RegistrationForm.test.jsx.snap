@@ -21,6 +21,7 @@ exports[`registration-form tests render content tests should match snapshot 1`] 
   </p>
   <form
     className="registration-form"
+    onSubmit={[Function]}
   >
     <div
       className="input-wrapper"
@@ -248,7 +249,7 @@ exports[`registration-form tests render content tests should match snapshot 1`] 
     </div>
     <button
       className="registration-form__submit"
-      onClick={[Function]}
+      type="submit"
     >
       Create Account
     </button>

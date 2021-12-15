@@ -1,14 +1,8 @@
 import { useState } from "react";
-import { TextInput } from "../form-inputs/text-input/TextInput";
+import { Input } from "../form-inputs/input/Input";
 import { PasswordInput } from "../form-inputs/password-input/PasswordInput";
-import { CheckboxInput } from "../form-inputs/checkbox-input/CheckboxInput";
-import {
-  validateName,
-  validateEmail,
-  validatePhone,
-  validatePassword,
-  checkValidationObj,
-} from "../../helpers";
+import { Checkbox } from "../form-inputs/checkbox-input/Checkbox";
+import { validateField, checkValidationObj } from "../../helpers";
 import "./RegistrationForm.scss";
 
 export const RegistrationForm = () => {
@@ -73,6 +67,69 @@ export const RegistrationForm = () => {
     </p>
   );
 
+  const inputsData = [
+    {
+      type: "text",
+      name: "firstName",
+      id: "first-name",
+      labelText: "First Name",
+    },
+    { type: "text", name: "lastName", id: "last-name", labelText: "Last Name" },
+    {
+      type: "tel",
+      name: "phone",
+      id: "phone-number",
+      labelText: "Phone Number",
+    },
+    { type: "email", name: "email", id: "email", labelText: "Email" },
+    {
+      type: "password",
+      name: "password",
+      id: "password",
+      labelText: "Password",
+    },
+    {
+      type: "password",
+      name: "repeatPassword",
+      id: "repeat-password",
+      labelText: "Repeat Password",
+    },
+  ];
+
+  const createInput = (type, name, attrs) =>
+    type === "password" ? (
+      <PasswordInput
+        name={name}
+        onChange={handleInputChange}
+        value={formValues[name]}
+        validity={inputsValid[name]}
+        error={formErrors[name]}
+        showError={showError[name]}
+        {...attrs}
+      />
+    ) : type === "checkbox" ? (
+      <Checkbox
+        name={name}
+        onChange={handleInputChange}
+        checked={formValues[name]}
+        validity={inputsValid[name]}
+        error={formErrors[name]}
+        showError={showError[name]}
+        {...attrs}
+      />
+    ) : (
+      <Input
+        type={type}
+        name={name}
+        onChange={handleInputChange}
+        value={formValues[name]}
+        validity={inputsValid[name]}
+        error={formErrors[name]}
+        showError={showError[name]}
+        {...attrs}
+      />
+    );
+
   const handleInputChange = (e) => {
     const value =
       e.target.type === "checkbox" ? e.target.checked : e.target.value;
@@ -86,25 +143,14 @@ export const RegistrationForm = () => {
     const validateValue = (name, value) => {
       let validity;
       switch (name) {
-        case "firstName":
-        case "lastName":
-          validity = validateName(value);
-          break;
-        case "email":
-          validity = validateEmail(value);
-          break;
-        case "phone":
-          validity = validatePhone(value);
-          break;
-        case "password":
-          validity = validatePassword(value);
-          break;
         case "repeatPassword":
           validity = value === formValues.password ? true : false;
           break;
         case "acceptTerms":
           validity = !formValues.acceptTerms;
           break;
+        default:
+          validity = validateField(name, value);
       }
       return validity;
     };
@@ -166,13 +212,12 @@ export const RegistrationForm = () => {
       });
       return;
     }
-    if (!formIsValid) {
-      const newShowError = { ...inputsValid };
-      for (let key in newShowError) {
-        newShowError[key] = !newShowError[key];
-      }
-      setShowError(newShowError);
+
+    const newShowError = { ...inputsValid };
+    for (let key in newShowError) {
+      newShowError[key] = !newShowError[key];
     }
+    setShowError(newShowError);
   };
 
   return (
@@ -185,95 +230,28 @@ export const RegistrationForm = () => {
         Let's get you all set up so you can verify your personal account and
         begin setting up your profile
       </p>
-      <form className={formClassName}>
-        <TextInput
-          type="text"
-          id="first-name"
-          name="firstName"
-          onChange={handleInputChange}
-          value={formValues["firstName"]}
-          labelText="First Name"
-          validity={inputsValid["firstName"]}
-          error={formErrors["firstName"]}
-          showError={showError["firstName"]}
-        />
-        <TextInput
-          type="text"
-          id="last-name"
-          name="lastName"
-          onChange={handleInputChange}
-          value={formValues["lastName"]}
-          labelText="Last Name"
-          validity={inputsValid["lastName"]}
-          error={formErrors["lastName"]}
-          showError={showError["lastName"]}
-        />
-        <TextInput
-          type="tel"
-          id="phone-number"
-          name="phone"
-          onChange={handleInputChange}
-          value={formValues["phone"]}
-          labelText="Phone Number"
-          validity={inputsValid["phone"]}
-          error={formErrors["phone"]}
-          showError={showError["phone"]}
-        />
-        <TextInput
-          type="email"
-          id="email"
-          name="email"
-          onChange={handleInputChange}
-          value={formValues["email"]}
-          labelText="Email"
-          validity={inputsValid["email"]}
-          error={formErrors["email"]}
-          showError={showError["email"]}
-        />
-        <PasswordInput
-          id="password"
-          name="password"
-          onChange={handleInputChange}
-          value={formValues["password"]}
-          labelText="Password"
-          validity={inputsValid["password"]}
-          error={formErrors["password"]}
-          showError={showError["password"]}
-        />
-        <PasswordInput
-          id="repeat-password"
-          name="repeatPassword"
-          onChange={handleInputChange}
-          value={formValues["repeatPassword"]}
-          labelText="Repeat Password"
-          validity={inputsValid["repeatPassword"]}
-          error={formErrors["repeatPassword"]}
-          showError={showError["repeatPassword"]}
-        />
+      <form className={formClassName} onSubmit={handleSubmit}>
+        {inputsData.map((inputData) =>
+          createInput(inputData["type"], inputData["name"], {
+            id: inputData["id"],
+            labelText: inputData["labelText"],
+          })
+        )}
         <div
           className={`${formClassName}__column ${formClassName}__column--wide`}
         >
-          <CheckboxInput
-            id="receive-emails"
-            name="acceptReceiveEmails"
-            onChange={handleInputChange}
-            checked={formValues["acceptReceiveEmails"]}
-            labelText="Yes, I want to receive Lottery Display emails"
-            validity={""}
-          />
-          <CheckboxInput
-            id="accept-terms"
-            name="acceptTerms"
-            onChange={handleInputChange}
-            checked={formValues["acceptTerms"]}
-            labelText="I agree to the all"
-            validity={inputsValid["acceptTerms"]}
-            error={formErrors["acceptTerms"]}
-            showError={showError["acceptTerms"]}
-            children={termsLinks}
-          />
+          {createInput("checkbox", "acceptReceiveEmails", {
+            id: "receive-emails",
+            labelText: "Yes, I want to receive Lottery Display emails",
+            validity: "",
+          })}
+          {createInput("checkbox", "acceptTerms", {
+            id: "accept-terms",
+            labelText: "I agree to the all",
+            children: termsLinks,
+          })}
         </div>
-        <button className={`${formClassName}__submit`} onClick={handleSubmit}>
+        <button className={`${formClassName}__submit`} type="submit">
           Create Account
         </button>
         <div

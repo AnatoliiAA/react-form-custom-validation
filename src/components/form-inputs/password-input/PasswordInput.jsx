@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { TextInput } from "../text-input/TextInput";
+import { Input } from "../input/Input";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-regular-svg-icons";
 import "./PasswordInput.scss";
@@ -28,7 +28,7 @@ export const PasswordInput = ({
 
   return (
     <>
-      <TextInput
+      <Input
         type={visibility ? "text" : "password"}
         value={value}
         id={id}

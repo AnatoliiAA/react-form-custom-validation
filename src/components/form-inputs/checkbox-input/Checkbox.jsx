@@ -1,6 +1,6 @@
-import "./CheckboxInput.scss";
+import "./Checkbox.scss";
 
-export const CheckboxInput = ({
+export const Checkbox = ({
   id,
   name,
   labelText,
@@ -18,7 +18,7 @@ export const CheckboxInput = ({
       id={id}
       name={name}
       className={`checkbox-input ${
-        validity === true
+        validity
           ? "checkbox-input--valid"
           : showError
           ? "checkbox-input--invalid"

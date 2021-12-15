@@ -1,21 +1,9 @@
-export const validateName = (nameStr) => {
-  const regex = /^[a-zA-Zа-яА-Я]{2,}$/;
-  return regex.test(nameStr);
-};
-
-export const validateEmail = (emailStr) => {
-  const regex = /\S+@\S+\.\S+/;
-  return regex.test(emailStr);
-};
-
-export const validatePhone = (phoneStr) => {
-  const regex = /^\+?[0-9]{12}$/;
-  return regex.test(phoneStr);
-};
-
-export const validatePassword = (passwordStr) => {
-  const regex = /^[a-zA-Z0-9!@#$%^&*]{8,}$/;
-  return regex.test(passwordStr);
+const patterns = {
+  firstName: /^[a-zA-Zа-яА-Я]{2,}$/,
+  lastName: /^[a-zA-Zа-яА-Я]{2,}$/,
+  email: /\S+@\S+\.\S+/,
+  phone: /^\+?[0-9]{12}$/,
+  password: /^[a-zA-Z0-9!@#$%^&*]{8,}$/,
 };
 
 export const checkValidationObj = (obj) => {
@@ -26,4 +14,8 @@ export const checkValidationObj = (obj) => {
     }
   }
   return valid;
+};
+
+export const validateField = (name, value) => {
+  return patterns[name].test(value);
 };
